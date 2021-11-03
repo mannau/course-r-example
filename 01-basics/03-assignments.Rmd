@@ -1,0 +1,214 @@
+---
+title: Create variables through assignments
+tutorial:
+  id: course-r-introduction#01-basics#03-assignments
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Create variables through assignments
+
+Usually you want to store vectors and other objects into variables so you can work with them more easily. Variables are like a box with a name. You can then refer to the name to see what is stored inside.
+
+- Learn how to create a variable
+- Use variables to store objects and vectors
+- Reuse assigned objects through a variable name
+
+```{r eval=FALSE, recipe=TRUE}
+___ <- ___
+```
+
+## Assigning variables
+
+Usually you want to use objects like vectors more than once. In order to save the trouble of retyping and recreating them all the time we would like to save them somewhere and reuse them later.
+
+To do this we can assign them to a variable *name*. R uses the special arrow operator `<-` for assigning values to a variable. The arrow is simply the combination of a smaller-than character (`<`) and a minus sign (`-`).<!-- shortcut doesn't work on platform right?  -->
+
+<!-- Note: There is a similar operator (`=`), which would work as well in most cases, instead of the arrow operator. But, the `=` operator is not interchangeable to the arrow operator and there are exceptions where it would not work as you'd think. As we will see throughout the course, the `=` has its own use cases. To avoid possible issues, we will consistently use the `<-` operator for assigning variables in this course. -->
+
+<!-- included side note about = as discussed, but I think it wouldn't make much difference for the user if we never mentioned it -->
+
+Let's take a look at an example, in which we assign a numeric vector to a variable named `numbers`:
+```{r echo=TRUE}
+numbers <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+```
+
+Now we can use the variable's name below to see its contents:
+```{r echo=TRUE}
+numbers
+```
+
+Note, that when we assign something to a variable that already exists, it gets overwritten. All previous contents are automatically removed:
+```{r echo=TRUE}
+numbers <- c(10, 11, 12, 13)
+numbers
+```
+
+Once you have defined a variable you can use it just like you would use the underlying vector itself. In the following example we create two numeric vectors and assign them to the variables `low` and `high`. Then we use these variables and concatenate the two vectors into a single one and assign it to the variable named `sequence`. Finally we call the `sequence` variable and inspect its contents:
+```{r echo=TRUE}
+low <- c(1, 2, 3)
+high <- c(4, 5, 6)
+sequence <- c(low, high)
+sequence
+```
+As you can see, the vectors `1, 2, 3` and `4, 5, 6` stored in the variables `low` and `high`, were combined into a single vector that is now the content of the variable `sequence`.
+
+<!-- It is important to distinguish the syntax of characters and variable names. As you already know, characters can be elements of a vector and must be enclosed by quotation marks. Variable names on the other hand must be used without quotation marks. To demonstrate the difference let's create a variable named `pets` and assign to it a character vector containing the words: "dogs", "cats". -->
+<!-- ```{r, echo=TRUE} -->
+<!-- pets <- c("dogs", "cats") -->
+<!-- ``` -->
+
+## Exercise: Assign numeric vector to variable
+
+- Use the concatenate function `c()` and create a vector containing the numbers 2, 3, 5 and 7. 
+- Assign this vector to a variable named `primes`.
+
+```{r exercise-01-03-00, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-03-00-hint-1, eval=FALSE}
+primes <- c() 
+```
+
+```{r exercise-01-03-00-hint-2, eval=FALSE}
+primes <- c(2, ___, ___, ___)
+```
+
+```{r exercise-01-03-00-hint-3, eval=FALSE}
+primes <- c(2, 3, ___, ___)
+```
+
+```{r exercise-01-03-00-solution}
+primes <- c(2, 3, 5, 7)
+```
+
+```{r exercise-01-03-00-check}
+ex() %>%
+  check_operator("<-") %>%
+  check_object("primes") %>%
+  check_equal()
+```
+
+## Exercise: Assign character vector to variable
+
+Use the concatenate function `c()` and create a vector containing the words
+
+- `"programming"`
+- `"R"` and 
+- `"variables"`
+
+Assign this vector to the variable `fun`.
+
+```{r exercise-01-03-01, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-03-01-hint-1, eval=FALSE}
+fun <- c()
+```
+
+```{r exercise-01-03-01-hint-2, eval=FALSE}
+fun <- c("programming", "___", "___")
+```
+
+```{r exercise-01-03-01-hint-3, eval=FALSE}
+fun <- c("programming", "R", "___")
+```
+
+```{r exercise-01-03-01-solution}
+fun <- c("programming", "R", "variables")
+```
+
+```{r exercise-01-03-01-check}
+ex() %>%
+  check_operator("<-") %>%
+  check_object("fun") %>%
+  check_equal()
+```
+
+## Quiz: Variable Overriding
+
+```{r echo=T, eval=FALSE}
+fun <- c("programming", "in", "R") 
+fun <- c("Have", "fun")
+fun
+```
+
+```{r exercise-01-03-02, echo = FALSE}
+question('Inspect the code chunk above. What is the content of the variable `fun` in the last step?',
+  answer('`"programming"` `"in"` `"R"`'),
+  answer('`"Have"` `"fun"`', correct = TRUE),
+  answer('`"programming"` `"in"` `"R"` `"Have"` `"fun"`'),
+  answer("There is no output, only an error message."),
+  allow_retry = TRUE
+)
+```
+
+## Quiz: Vector Concatenation
+
+```{r echo=T, eval=FALSE}
+fun <- c("programming", "in", "R") 
+fun2 <- c("Have", "fun")
+fun3 <- c(fun2, fun)
+fun3
+```
+
+```{r exercise-01-03-03, echo = FALSE}
+question('Inspect the code chunk above. What is the content of the variable `fun3` in the last step?',
+  answer('`"programming"` `"in"` `"R"` `"Have"` `"fun"`'),
+  answer('`"Have"` `"fun"`'),
+  answer('`"Have"` `"fun"` `"programming"` `"in"` `"R"`', correct = TRUE),
+  answer("There is no output, only an error message."),
+  allow_retry = TRUE
+)
+```
+
+## Naming rules
+
+<!-- TODO: Add more text, introduce snake_case and camelCase -->
+
+There are a few rules we need to consider when creating variables.
+
+**Variable rules**
+
+- Can contain letters: <span style="color:green">`example`</span>
+- Can contain numbers: <span style="color:green">`example1`</span>
+- Can contain underscores: <span style="color:green">`example_1`</span>
+- Can contain dots: <span style="color:green">`example.1`</span>
+<!-- and technically spaces using `a b` syntax, but I wouldn`t mention it -->
+- Cannot start with numbers: <span style="color:red">`2example`</span> 
+- Cannot start with underscores: <span style="color:red">`_example`</span> 
+- Cannot start with a dot if directly followed by a number: <span style="color:red">`.2example`</span> <!-- never came across of this though, maybe skip it-->
+
+<!-- this sidenote is a bit too far from the topic of assigning variables, I can understand if we remove it  -->
+<!-- Apart from the rules for naming variables, there are some conventions for the naming style. These are not binding and some people prefer and use different schemes. However, staying consistent with the style of your variable names can help the readability of your code. There are two main naming styles: -->
+
+<!-- - snake_case, which uses underscores between words: `this_is_an_example` -->
+<!-- - camelCase, which starts with a lowercase letter, and uses uppercase for the beginning of every new word: `thisIsAnExample` -->
+
+## Quiz: Naming Rules
+
+```{r exercise-01-03-04, echo = FALSE}
+question('Which of the following variable names are valid?',
+  answer("weekly+tasks", message="Variable names cannot contain any special symbols except for underscores and dots."),
+  answer("task2Do", correct = TRUE),
+  answer("24hour", message = "Variable names cannot start with numbers."),
+  answer(".task", correct = TRUE),
+  allow_retry = TRUE
+)
+```

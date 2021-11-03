@@ -1,0 +1,7 @@
+title: Data Frames and Tibbles 
+description: >-
+    Create tabular data structures with data frames and see how they compare to tibbles. 
+    Extract column vectors from data frames for computations. Get metadata information like
+    dimensions. Select top- and bottom rows for a quick overview.
+image: badge.svg
+badgeTitle: Data Frames Level 1

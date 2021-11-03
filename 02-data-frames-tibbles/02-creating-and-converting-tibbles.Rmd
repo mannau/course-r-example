@@ -1,0 +1,139 @@
+---
+title: Create and convert tibbles
+tutorial:
+  id: course-r-introduction#02-data-frames-tibbles#02-creating-and-converting-tibbles
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Create and convert tibbles
+
+Tibbles are the modern reimagination of data frames and share many commonalities with their ancestors. The most visible difference is how tibble contents are printed to the console. Tibbles are part of the tidyverse and used for their more consistent behaviour compared to data frames.
+
+- Learn the difference between *data frames* and *tibbles*
+- Create *tibbles* from vectors
+- Convert *data frames* into *tibbles*
+
+```{r eval=FALSE, recipe=TRUE}
+tibble(___ = ___, 
+       ___ = ___, 
+       ...)
+as_tibble(___)
+```
+
+## Introduction to Tibbles
+
+> **A modern reimagining of the data frame**
+>
+> https://tibble.tidyverse.org
+
+Tibbles are in many ways similar to data frames. In fact, they are *inherited* from data frames which means that all functions and features available for data frames also work for tibbles. Therefore, when we speak of *data frames* we also mean *tibbles*.
+
+In addition to everything a data frame has to offer, tibbles have a more consistent behaviour with better usability in many cases. Most importantly, when a tibble object is printed to the console it automatically shows only the first 10 rows and condenses additional columns. By contrast, a data frame fills up the entire console screen with values which can lead to confusion. Let's take a look the the `gapminder` dataset from the **gapminder** package:
+
+```{r, include=FALSE}
+library(gapminder)
+```
+
+```{r tibble, echo=TRUE}
+gapminder
+```
+
+We immediately see that the `gapminder` dataset is a tibble consisting of 1,704 rows and 6 columns on the top line. In the second line we can see the column names and their corresponding *data types* directly below.
+
+For example, the column `country` has the type `<fct>`, which is short for factor, `year` is an integer `<int>` and life expectancy `lifeExp` is a `<dbl>`, a decimal number. Note, that `<dbl>` actually stands for *double* precision floating point number, which is the default format for decimal numbers in R.
+
+## Quiz: Tibbles versus Data Frames
+
+```{r quiz-02-01-04, echo = FALSE}
+question('Which answers about data frames and tibbles are correct?',
+  answer("The printed output to the console is the same for tibbles and data frames", message = "The console output is one of the few differences between tibbles and data frames."),
+  answer("All functions defined for data frames also work on tibbles.", correct = TRUE),
+  answer("Tibbles also show the data types in the console output.", correct = TRUE),
+  answer("To use tibble objects the **tibbles** package needs to be loaded.", correct = TRUE),
+  answer("The table dimensions are not shown in the console output for tibbles.", message = "The dimensions are shown in the very first row of the console output."),
+  allow_retry = TRUE
+)
+```
+
+## Creating Tibbles
+
+```{r eval=FALSE, highlightLines=1:3}
+tibble(___ = ___, 
+       ___ = ___, 
+       ...)
+as_tibble(___)
+```
+
+The creation of tibbles works exactly the same as for data frames. We can use the `tibble()` function from the **tibble** package to create a new tabular object.
+
+For example, a tibble containing data from four different people and three columns can be created like this:
+
+```{r, echo=TRUE, eval=TRUE}
+library(tibble)
+tibble(
+  id = c(1, 2, 3, 4),
+  name = c("Louisa", "Jonathan", "Luigi", "Rachel"),
+  female = c(TRUE, FALSE, FALSE, TRUE)
+)
+```
+
+## Converting data frames to Tibbles
+
+If you prefer tibbles to data frames for their additional features they can also be converted from existing data frames with the `as_tibble()` function. 
+
+For example, the `Davis` data frame from the **carData** package can be converted to a tibble like so:
+
+```{r, include=FALSE}
+library(carData)
+```
+
+```{r, echo=TRUE, eval=TRUE}
+as_tibble(Davis)
+```
+
+## Exercise: Convert data frame to Tibble
+
+```{r, echo=FALSE, eval=TRUE}
+options(max.print = ncol(cars) * 3)
+cars
+```
+
+The data frame `cars` reports the speed of cars and distances taken to stop. To have a nicer printed output in the console use the `as_tibble()` function and create a tibble object out of it.
+
+```{r exercise-02-01-05, exercise=TRUE, packagesLoaded="tibble"}
+```
+
+```{r exercise-02-01-05-hint-1, eval=FALSE}
+as____(___)
+```
+
+```{r exercise-02-01-05-hint-2, eval=FALSE}
+as_tibble(___)
+```
+
+```{r exercise-02-01-05-solution, eval=FALSE}
+as_tibble(cars)
+```
+
+```{r exercise-02-01-05-check, eval=FALSE}
+ex() %>% check_function("as_tibble") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_result(.) %>% check_equal()
+}
+ex() %>% check_output_expr("as_tibble(cars)")
+```

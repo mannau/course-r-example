@@ -1,0 +1,114 @@
+---
+title: Extract or replace columns in a data frame using $
+tutorial:
+  id: course-r-introduction#02-data-frames-tibbles#03-extracting-columns
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+library(carData)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Extract or replace columns in a data frame using $
+
+Columns in a data frame can be easily extracted and manipulated with the `$` operator. Even new columns can be added by assigning a vector.
+
+- Extract columns from a data frame with the `$`.
+- Replace values of existing columns in a data frame.
+- Add new columns to a data frame.
+
+```{r eval=FALSE, recipe=TRUE}
+___$___
+___$___  <- ___
+```
+
+## Extract columns with the $
+
+```{r eval=FALSE, highlightLines=1}
+___$___
+___$___  <- ___
+```
+
+Data frames are tables resulting from the combination of column vectors. Users can interact with data frames through numerous operators to extract, add or recombine values. To extract single columns from a data frame R offers a very specific operator: the dollar `$`. It returns the column vector as indicated by its name based on a data frame preceding the `$`.
+
+To see the `$` operator in action let's extract the population `pop` (in 1,000) from different states in the US based on the `States` dataset (from 1992) in the **carData** package:
+
+```{r, packagesLoaded = "carData", echo=TRUE}
+States$pop
+```
+
+The command extracts the population column as vector from the data frame. From this vector we can calculate the `sum()` of the total population as:
+
+```{r, packagesLoaded = "carData", echo=TRUE}
+sum(States$pop)
+```
+
+Similarly, the average salary (in $1,000) for teachers can be calculated by applying the `mean()` function on the `pay` column:
+
+```{r, packagesLoaded = "carData", echo=TRUE}
+mean(States$pay)
+```
+
+## Quiz: Extract column from a data frame
+
+```{r, echo=FALSE, eval=TRUE}
+library(carData)
+options(max.print = 5*ncol(Salaries))
+Salaries
+```
+
+```{r quiz-02-03-01, echo = FALSE}
+question('Which R command can be used to calculate the average `salary` of professors in the `Salaries` dataset from the **carData** package?',
+  answer("`mean(Salaries$salary)`", correct=TRUE),
+  answer("`mean(salary$Salaries)`", message = "The data frame `Salaries` precedes the `$` operator."),
+  answer("`Salaries(mean$salary)`", message = "The `mean()` function call needs to be replaced with the `Salaries` dataset."),
+  answer("`Salaries(age$mean)`", message = "The `mean()` function call needs to be replaced with the `Salaries` dataset."),
+  allow_retry = TRUE
+)
+```
+
+## Exercise: Extract column from a data frame
+
+Calculate the average `age` of passengers in the `titanic_survival` dataset.
+
+```{r exercise-02-03-01-setup}
+library(carData)
+titanic_survival <- na.omit(TitanicSurvival)
+```
+
+```{r exercise-02-03-01, exercise=TRUE}
+titanic_survival
+```
+
+```{r exercise-02-03-01-hint-1, eval=FALSE}
+titanic_survival$___
+```
+
+```{r exercise-02-03-01-hint-2, eval=FALSE}
+mean(titanic_survival$___)
+```
+
+```{r exercise-02-03-01-solution}
+mean(titanic_survival$age)
+```
+
+```{r exercise-02-03-01-check}
+ex() %>% check_operator("$") %>% check_result() %>% check_equal()
+ex() %>% check_function("mean") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_result(.) %>% check_equal()
+}
+ex() %>% check_output_expr("mean(titanic_survival$age)")
+```

@@ -1,0 +1,153 @@
+---
+title: Determine the size of a data frame
+tutorial:
+  id: course-r-introduction#02-data-frames-tibbles#04-determine-size-data-frame
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+library(carData)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Determine the size of a data frame
+
+The size of a data frame, like the number of rows or columns, is often required and can be determined in various ways.
+
+- Get number of rows of a data frame
+- Get number of columns of a data frame
+- Get dimensions of a data frame
+
+```{r eval=FALSE, recipe=TRUE}
+nrow(___)
+ncol(___)
+dim(___)
+length(___)
+```
+
+
+<!-- Required concepts: -->
+<!-- vectors --> 
+
+<!-- Covered concepts (basics): -->
+<!-- data frames --> 
+<!-- structure of df  --> 
+<!-- tibbles (very basic)  --> 
+
+## Data Frame Dimensions
+
+```{r eval=FALSE, highlightLines=1:2}
+nrow(___)
+ncol(___)
+dim(___)
+length(___)
+```
+
+The number of rows and columns in a data frame can be guessed through the printed output of the data frame. However, it is much easier to get this information directly through functions. Additionally, you might want to use this information in some parts of the code.
+
+Data frames have two dimensions. The number of rows is considered to be the first dimension. It typically defines the number of observations in a data set. To get the number of rows from the `Davis` data frame in the **carData** dataset use the `nrow()` function:
+
+```{r, echo=TRUE}
+nrow(Davis)
+```
+
+Similarly, the number of columns or *attributes* of the data frame can be retrieved with `ncol()`:
+
+```{r, echo=TRUE}
+ncol(Davis)
+```
+
+## Exercise: Determine number of elements in data frame
+
+```{r, echo = FALSE}
+library(carData)
+options(max.print = ncol(TitanicSurvival))
+TitanicSurvival
+```
+
+Determine the number of data values in the `TitanicSurvival` data frame above given as the number of rows multiplied by the number of columns. 
+
+```{r exercise-02-03-01, exercise=TRUE, packagesLoaded="carData"}
+TitanicSurvival
+```
+
+```{r exercise-02-03-01-hint-1, eval=FALSE}
+nrow(TitanicSurvival) * ___
+```
+
+```{r exercise-02-03-01-hint-2, eval=FALSE}
+nrow(TitanicSurvival) * ncol(___)
+```
+
+```{r exercise-02-03-01-solution}
+nrow(TitanicSurvival) * ncol(TitanicSurvival)
+```
+
+```{r exercise-02-03-01-check}
+ex() %>% check_function("nrow") %>% check_arg("x") %>% check_equal()
+ex() %>% check_function("ncol") %>% check_arg("x") %>% check_equal()
+ex() %>% check_operator("*") %>% check_result() %>% check_equal()
+ex() %>% check_output_expr("nrow(TitanicSurvival) * ncol(TitanicSurvival)")
+```
+
+## Retrieving data frame dimensions
+
+```{r eval=FALSE, highlightLines=3:4}
+nrow(___)
+ncol(___)
+dim(___)
+length(___)
+```
+
+To retrieve the size of all dimensions from a data frame at once you can use the `dim()` function. `dim()` returns a vector with two elements, the first element is the number of rows and the second element the number of columns.
+
+For example, the dimensions of the `Davis` dataset can be retrieved as 
+
+```{r, echo=TRUE}
+dim(Davis)
+```
+
+In addition to data frames `dim()` can also be used for other multi-dimensional R objects such as matrices or arrays. However, when used with vectors `dim` only returns `NULL`:
+
+```{r, echo=TRUE}
+dim(c(1, 3, 5, 7))
+```
+
+Instead, the length of a vector is determined through `length()`:
+
+```{r, echo=TRUE}
+length(c(1, 3, 5, 7))
+```
+
+In the case of a data frame `length()` returns its number of columns:
+
+```{r, echo=TRUE}
+length(Davis)
+```
+
+## Quiz: Data Frame Dimensions
+
+```{r, eval=FALSE, echo=TRUE}
+dim(Florida)
+```
+
+```{r quiz-02-03-02, echo = FALSE}
+question('What does the above command return for the data set `Florida` from the **carData** package which has 11 columns and 67 rows?',
+  answer("`67` `11`", correct = TRUE),
+  answer("`11` `67`"),
+  answer("`11`"),
+  answer("`67`"),
+  allow_retry = TRUE
+)
+```

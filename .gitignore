@@ -1,0 +1,16 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+rstudio-conf-2019
+index_cache
+index.html
+index_files
+*.zip
+*.json
+*.html
+*_files/
+*_cache/
+contents.yml
+qbit-course-r-introduction
+.DS_Store

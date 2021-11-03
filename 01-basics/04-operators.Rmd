@@ -1,0 +1,583 @@
+---
+title: Use basic operators
+tutorial:
+  id: course-r-introduction#01-basics#04-operators
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Use basic operators
+
+R is not only good for analysing and visualizing data, but also for solving maths problems or comparing data with each other. Plus you can use it just like a pocket calculator.
+
+- Use R as a pocket calculator
+- Use arithmetic operators on vectors
+- Use relational operators on vectors
+- Use logical operators on vectors
+
+```{r eval=FALSE, recipe=TRUE}
+___ + ___
+___ - ___
+___ / ___
+___ * ___
+___ ^ ___
+
+___ == ___
+___ != ___
+___ < ___
+___ > ___
+___ <= ___
+___ >= ___
+
+___ & ___
+___ | ___
+
+___ %in% ___
+```
+<!-- split recipe into multiple chunks or is it strictly one chunk? in that case leave out some of theses? -->
+<!-- relied on https://www.tutorialkart.com/r-tutorial/r-operators/, I assume we can skip more complex things like %/% or %*%  -->
+
+## Using R as a pocket calculator
+
+```{r eval=FALSE, highlightLines = 1:4}
+___ + ___
+___ - ___
+___ / ___
+___ * ___
+```
+
+R is a programming language mainly developed for statistics and data analysis. Within R you can use mathematical operators just like you would use on a calculator. For example, you can add `+` and subtract `-` numbers from each other:
+
+```{r echo=TRUE}
+5 + 5
+7 - 3.5
+```
+
+Similarly, you can multiply `*` or divide `/` numbers:
+
+```{r echo=TRUE}
+5 * 7
+8 / 4
+```
+
+You can take the power of a number by using the `^` sign:
+```{r echo=TRUE}
+2 ^ 3
+```
+
+According to the rules of mathematics, you can use round brackets to specify the order of evaluation in more complex tasks:
+```{r echo=TRUE}
+5 * (2 + 4 / 2)
+```
+
+## Exercise: Use basic arithmetic
+
+To calculate the mean of the numbers `2`, `3`, `7` and `8`:
+
+1. Add all the numbers together using `+`.
+2. Divide the result by the number of elements.
+3. Make sure that the result of the addition is calculated first by using braces `()`.
+
+```{r exercise-01-04-00, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-04-00-hint-1, eval=FALSE}
+___/___
+```
+
+```{r exercise-01-04-00-hint-2, eval=FALSE}
+(___+___+___+___)/___
+```
+
+```{r exercise-01-04-00-hint-3, eval=FALSE}
+(___+___+___+___) / 4
+```
+
+```{r exercise-01-04-00-solution}
+(2 + 3 + 7 + 8) / 4
+```
+
+```{r exercise-01-04-00-check}
+ex() %>% check_operator("+") %>% check_result() %>% check_equal()
+ex() %>% check_operator("/") %>% check_result() %>% check_equal()
+ex() %>% check_output_expr("(2 + 3 + 7 + 8) / 4")
+```
+
+## Applying arithmetic operators on vectors
+
+```{r eval=FALSE, highlightLines = 1:4}
+___ + ___
+___ - ___
+___ / ___
+___ * ___
+```
+
+Operations, such as addition, subtraction, multiplication and division are called *arithmetic operations*. They can not only operate with single values but also with vectors. If you use arithmetic operations on vectors, the operation is done on each individual number from the first vector and the individual number at the same position from the second vector.
+
+In the following example we create two numeric vectors and assign them to the variables `a` and `b`. We then add them together:
+
+```{r echo=T}
+a <- c(1, 3, 6, 9, 12, 15)
+b <- c(2, 4, 6, 8, 10, 12)
+a + b
+```
+
+As the output shows, the first elements of the two vectors were added together and resulted in `1 + 2 = 3`. The second elements added up to `3 + 4 = 7`, the third elements to `6 + 6 = 12` and so on.
+
+We can apply any other arithmetic operation in a similar way:
+```{r echo=TRUE}
+a <- c(22, 10, 7, 3, 14, 4)
+b <- c(4, 5, 2, 6, 14, 8)
+a / b
+```
+Using the same principle, the first element of the result is `22 / 4 = 5.5`, the second is `10 / 5 = 2` and so on.
+
+## Quiz: Vector Multiplication
+
+```{r echo=TRUE, eval=FALSE}
+odd <- c(1, 3, 5)
+even <- c(2, 4, 6)
+odd * even
+```
+
+```{r exercise-01-04-01, echo=FALSE}
+question('Inspect the code chunk above. What is the result of the multiplication?',
+  answer("`108`"),
+  answer("`54`"),
+  answer("`15`, `48`"),
+  answer("`2`, `12`, `30`", correct = TRUE),
+  answer("`18`, `36`, `54`"),
+  allow_retry = TRUE
+)
+```
+
+## Exercise: Multiply numeric vectors
+
+Multiply the numeric vectors `ascending` and `descending`:
+
+1. Create a vector with the numbers `1`, `2`, `3` and `4` and assign it to the variable `ascending`.
+2. Create a vector with the numbers `4`, `3`, `2` and `1` and assign it to the variable `descending`.
+3. Multiply (`*`) the variable `ascending` with the variable `descending`.
+
+```{r exercise-01-04-02, exercise=TRUE}
+ascending <- c()
+descending <- c()
+```
+
+```{r exercise-01-04-02-hint-1, eval=FALSE}
+ascending <- c(1, 2, 3, 4)
+descending <- c()
+```
+
+```{r exercise-01-04-02-hint-2, eval=FALSE}
+ascending <- c(1, 2, 3, 4)
+descending <- c(4, 3, 2, 1)
+___ * ___
+```
+
+```{r exercise-01-04-02-hint-3, eval=FALSE}
+ascending <- c(1, 2, 3, 4)
+descending <- c(4, 3, 2, 1)
+ascending * ___
+```
+
+```{r exercise-01-04-02-solution, eval=FALSE}
+ascending <- c(1, 2, 3, 4)
+descending <- c(4, 3, 2, 1)
+ascending * descending
+```
+
+```{r exercise-01-04-02-check, eval=FALSE}
+ex() %>% check_object("ascending") %>% check_equal()
+ex() %>% check_object("descending") %>% check_equal()
+ex() %>% check_output_expr("ascending * descending")
+```
+
+## Using relational operators
+
+```{r eval=FALSE, highlightLines = 1:6}
+___ == ___
+___ != ___
+___ < ___
+___ > ___
+___ <= ___
+___ >= ___
+```
+
+Relational operators are used to compare two values. The output of these operations is always a logical value `TRUE` or `FALSE`. We distinguish six different types relational operators, as we'll see below.
+
+The *equal* `==` and *not equal* `!=` operators check whether two values are the same (or not):
+
+```{r echo=T}
+2 == 1 + 1
+2 != 3
+```
+
+The *less than* `<` and *greater than* `>` operators check, whether a value is less or greater than another one:
+```{r echo=T}
+2 > 4
+2 < 4
+```
+
+The *less than or equal to* `<=` and the *greater than or equal to* `>=` operators combine the check for equality with either the less or the greater than comparison:
+```{r echo=T}
+2 >= 2
+2 <= 3
+```
+
+All of these operators can be used on vectors with one or more elements as well. In that case, each element of one vector is compared with the element at the same position in the other vector, just as with the mathematical operators:
+
+```{r echo=T}
+vector1 <- c(3, 5, 2, 7, 4, 2)
+vector2 <- c(2, 6, 3, 3, 4, 1)
+vector1 > vector2
+```
+
+Therefore, the output of this example is based on the comparisons `3 > 2`, `5 > 6`, `2 > 3` and so on.
+
+## Exercise: Compare numeric values
+
+Use the appropriate relational operator and check whether 3 is greater than or equal to 2
+
+```{r exercise-01-04-03, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-04-03-hint-1, eval=FALSE}
+___ >= ___
+```
+
+```{r exercise-01-04-03-solution}
+3 >= 2
+```
+
+<!-- TODO: Code still works for  3 >= 3 -->
+```{r exercise-01-04-03-check}
+ex() %>% check_operator(">=") %>% check_result() %>% check_equal()
+ex() %>% check_output_expr("3 >= 2")
+```
+
+## Exercise: Compare temperatures
+
+<!-- TODO: Good example but too long and not to the point -->
+<!-- TODO: Page is not in english -->
+
+<!-- Many governments around the world, including Austria, take part in an initiative open platform where they <a href="https://www.data.gv.at" target="_blank">share all sorts of data and statistics</a> about their country. -->
+
+In the following exercise, we make use of the <a href="https://www.data.gv.at/katalog/dataset/5eb8278a-4ecf-41e2-a1f8-03383f31af7d" target="_blank">weather data</a> gathered by the city of Innsbruck over the last decades. You are given two variables, `avgtemp_1997_2006` and `avgtemp_2007_2016`, each containing the monthly average temperatures in Innsbruck for the years 1997 to 2006 and 2007 to 2016.
+<!-- need better solution -->
+<!-- | January | February | March | April | May | June | July | August | September | October | November | December | -->
+<!-- |:-------:|:--------:|:-----:|:-----:|:---:|:----:|:----:|:------:|:---------:|:-------:|:--------:|:--------:| -->
+<!-- |  -1.14  |   1.12   |  5.71 | 9.45  |15.15|  18  | 18.94| 18.62  |   14.71   |  10.31  |   3.92   |   0.34   | -->
+
+<!-- ```{r echo=F} -->
+<!-- avgtemp_1997_2006 <- c(-1.14,1.12,5.71,9.45,15.15,18,18.94,18.62,14.71,10.31,3.92,0.34) -->
+<!-- avgtemp_2007_2016 <- c(0.4,1.67,6.03,11.24,14.77,18.17,19.8,19.15,14.7,9.87,5.14,0.56) -->
+<!-- names(avgtemp_1997_2006) <- names(avgtemp_2007_2016) <- c("January","February","March","April","May","June","July","August","September","October","November","December") -->
+<!-- avgtemp_2007_2016 -->
+<!-- ``` -->
+<!-- Note, that the elements in these vectors have names. This helps to identify the different months, but does not affect the vector in any other way. You can use it just like any other vector! -->
+
+Use an appropriate relational operator and compare the monthly averages. Check in which months there was an increase in the average temperature.
+
+```{r exercise-01-04-04-setup}
+avgtemp_1997_2006 <- c(-1.14,1.12,5.71,9.45,15.15,18,18.94,18.62,14.71,10.31,3.92,0.34)
+avgtemp_2007_2016 <- c(0.4,1.67,6.03,11.24,14.77,18.17,19.8,19.15,14.7,9.87,5.14,0.56)
+names(avgtemp_1997_2006) <- names(avgtemp_2007_2016) <- c("January","February","March","April","May","June","July","August","September","October","November","December")
+```
+
+```{r exercise-01-04-04, exercise=TRUE}
+avgtemp_1997_2006
+avgtemp_2007_2016
+```
+
+```{r exercise-01-04-04-hint-1, eval=FALSE}
+avgtemp_2007_2016 ___ avgtemp_1997_2006
+```
+
+```{r exercise-01-04-04-solution}
+avgtemp_2007_2016 > avgtemp_1997_2006
+```
+
+```{r exercise-01-04-04-check}
+#ex() %>% check_operator(">") %>% check_result() %>% check_equal()
+ex() %>% check_output_expr("avgtemp_2007_2016 > avgtemp_1997_2006")
+```
+
+## Using logical operators 
+
+```{r eval=FALSE, highlightLines = 1:2}
+___ & ___
+___ | ___
+```
+
+<!-- || vs | -->
+<!-- && vs & -->
+<!-- c(TRUE, FALSE, TRUE) & c(FALSE, TRUE, TRUE) -->
+<!-- c(TRUE, FALSE, TRUE) && c(TRUE, TRUE, TRUE) -->
+<!-- c(TRUE, FALSE, TRUE) | c(FALSE, TRUE, TRUE) -->
+<!-- c(TRUE, FALSE, TRUE) || c(TRUE, TRUE, TRUE) -->
+<!-- c(TRUE, FALSE, TRUE, TRUE) & c(TRUE, FALSE) -->
+
+<!--Logical operators are used to evaluate multiple things in combination. --> The *AND* operator `&` is a used for checking whether multiple statements are `TRUE` at the same time. Using a simple example, we could check whether 3 is greater than 1 and at the same time if 4 is smaller than 2:
+```{r echo=T}
+3 > 1 & 4 < 2
+```
+3 is in fact greater than 1, but 4 is not smaller than 2. Since one of the statements is `FALSE`, the output of this joined evaluation is also `FALSE`.
+
+The *OR* operator `|` checks only, whether any of the statements is `TRUE`. <!-- The following operation could be verbalized as a question: Is 3 greater than 1 or 4 less than 2? -->
+```{r echo=T}
+3 > 1 | 4 < 2
+```
+In an *OR* statement, not all elements have to be `TRUE`. Since 3 is greater than 1, the output of this evaluation is `TRUE` as well.
+
+The `!` operator is used for the negation of logical values, which means it turns `TRUE` values to `FALSE` and `FALSE` values to `TRUE`. If we have a statement resulting in a logical `TRUE` or `FALSE` value, we can negate the result by applying the `!` operator on it. In the following example we check whether 3 is greater than 2 and then negate the result of this comparison:
+```{r echo=T}
+!3 > 2
+```
+
+Logical operators, just like arithmetic and relational operators, can be used on longer vectors as well. In the following example we use three different vectors `a`, `b` and `c` and try to evaluate multiple relations in combination.
+```{r echo=T}
+a <- c(1, 21, 3, 4)
+b <- c(4, 2, 5, 3)
+c <- c(3, 23, 5, 3)
+
+a>b & b<c
+```
+First, both relational comparisons `a>b` and `b<c` are evaluated and result in two logical vectors. Therefore, we essentially compare the following two vectors:
+```{r echo=T}
+c(FALSE, TRUE, FALSE, TRUE) & c(FALSE, TRUE, FALSE, FALSE)
+```
+The `&` operator checks whether both values at the same position in the vectors are `TRUE`. If any value of the pairs is `FALSE`, the combination is `FALSE` as well. 
+
+The `|` operator checks whether any of the values at the same position in the vectors is `TRUE`. 
+```{r echo=T}
+c(FALSE, TRUE, FALSE, TRUE) | c(FALSE, TRUE, FALSE, FALSE)
+```
+
+<!-- I included this as discussed, but if the topic gets too long, I think this is something to exclude  -->
+<!-- Additionally, you might come across the special variant of the `&` and `|` operator, when it is used as `&&` or `||`. When applying them this way, only the first value of the vectors are compared: -->
+<!-- ```{r echo=T} -->
+<!-- c(TRUE,FALSE,FALSE) && c(TRUE,TRUE,FALSE) -->
+<!-- ``` -->
+<!-- In this example both elements at the first position were `TRUE` and therefore, the output was `TRUE` as well. Since only one pair of values was compared, the output is a single logical value.  -->
+
+
+<!-- Similarly, the `||` operator check whether any of the first value pair of the vectors is `TRUE` and outputs a single logical value as output: -->
+<!-- ```{r echo=T} -->
+<!-- c(TRUE,FALSE,FALSE) || c(FALSE,FALSE,FALSE) -->
+<!-- ``` -->
+
+## Exercise: Use the & operator
+
+You are given three variables `alpha`, `beta` and `gamma`. Use an appropriate logical operator and check whether `alpha` is greater than `beta` and at the same time `gamma` is smaller than `beta`.
+
+```{r exercise-01-04-05, exercise=TRUE, includeRecipe=TRUE}
+alpha <- 21
+beta <- 19
+gamma <- 19
+```
+
+```{r exercise-01-04-05-hint-1, eval=FALSE}
+___ & ___
+```
+
+```{r exercise-01-04-05-hint-2, eval=FALSE}
+___ > ___ & ___ < ___
+```
+
+```{r exercise-01-04-05-hint-3, eval=FALSE}
+alpha > ___ & gamma < ___
+```
+
+```{r exercise-01-04-05-solution}
+alpha <- 21
+beta <- 19
+gamma <- 19
+alpha > beta & gamma < beta
+```
+
+```{r exercise-01-04-05-check}
+ex() %>% check_predefined_objects(c("alpha", "beta", "gamma"))
+ex() %>% {
+  check_operator(., "&") %>% check_result() %>% check_equal()
+}
+ex() %>% check_output_expr("alpha > beta & gamma < beta")
+```
+
+## Exercise: Use the | operator
+
+You are given three variables `alpha`, `beta` and `gamma`. Each contains a numeric vector of two elements. Use the appropriate logical operator and check whether `alpha` is greater than `beta` OR `gamma` is less than `beta`. (Hint: use the logical OR operator `|`) <!-- hint | because no one knows how to type it -->
+
+<!-- Rewrite because exercise checks both ! and | at the same time using vectors instead single values for the first time
+2. Use the appropriate logical operator and negate the results of the first step. (Hint: Don't forget to use brackets to define the scope of what you want to negate.)
+-->
+
+
+```{r exercise-01-04-06, exercise=TRUE}
+alpha <- c(21, 12)
+beta <- c(19, 34)
+gamma <- c(19, 27)
+```
+
+```{r exercise-01-04-06-hint-1, eval=FALSE}
+___ > ___ ___ ___ < ___
+```
+
+```{r exercise-01-04-06-hint-2, eval=FALSE}
+___ > ___ | ___ < ___
+```
+
+```{r exercise-01-04-06-hint-3, eval=FALSE}
+alpha > ___ | gamma < ___
+```
+
+```{r exercise-01-04-06-solution}
+alpha <- c(21, 12)
+beta <- c(19, 34)
+gamma <- c(19, 27)
+alpha > beta | gamma < beta
+```
+
+```{r exercise-01-04-06-check}
+ex() %>% check_predefined_objects(c("alpha", "beta", "gamma"))
+ex() %>% {
+  check_operator(., "|") %>% check_result() %>% check_equal()
+  check_operator(., ">") %>% check_result() %>% check_equal()
+  check_operator(., "<") %>% check_result() %>% check_equal()
+}
+ex() %>% check_output_expr("alpha > beta | gamma < beta")
+```
+
+<!-- TODO: Check if recycling should be included
+
+## Recycling
+
+You might wonder what happens if we try to use operations on vectors that are not the same length. In this case R reuses the shorter vector and starts from its first element as if it were longer in the first place. In R this is called recycling.
+
+In the following example we multiply two vectors of different length. The first element of `c` gets multiplied with the first element of `d` and results in `3*1=3`. Then, the second element is multiplied with second element and results in `4*2=8`. However, for the third element of `c` R recycles `d` and starts from its fist element. This results in `6*1=6`. This goes on until, every element of the longer vector is multiplied with a value.
+```{r echo=T}
+c <- c(3,4,6,9,12,15)
+d <- c(1,2)
+c*d
+```
+
+Following the same logic, recycling can happen with other types of operators as well. In the example below following relational comparisons are done: `7>2`, `2>6`,`7>3` and `2>1`.
+```{r echo=T}
+vector1 <- c(7,2)
+vector2 <- c(2,6,3,1)
+vector1 > vector2
+```
+
+## Exercise: Addition recycling
+
+```{r echo=T, eval=FALSE}
+few <- c(1,2,3)
+many <- c(4,7,4,1,9,2)
+few + many
+```
+
+```{r exercise-01-04-07, echo = FALSE}
+question('Inspect the code chunk above. What is the the output of the last step?',
+  answer("5,9,7"),
+  answer("5,9,7,1,9,2"),
+  answer("5,9,7,5,9,7"),
+  answer("5,9,7,2,11,5", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+## Exercise: Comparison recycling
+
+```{r echo=T, eval=FALSE}
+vector1 <- c(4,7,4,1,9,3)
+vector2 <- c(6,2)
+vector1 > vector2
+```
+
+```{r exercise-01-04-08, echo = FALSE}
+question('Inspect the code chunk above. What is the the output of the last step?',
+  answer("`FALSE`,`TRUE`,`FALSE`,`FALSE`,`TRUE`,`TRUE`", correct = TRUE),
+  answer("`TRUE`,`FALSE`,`TRUE`,`TRUE`,`FALSE`,`FALSE`"),
+  answer("`FALSE`,`TRUE`,`FALSE`,`TRUE`,`FALSE`,`TRUE`"),
+  answer("`TRUE`,`FALSE`,`TRUE`,`TRUE`,`FALSE`,`FALSE`"),
+  allow_retry = TRUE
+)
+```
+
+-->
+
+## Using the %in% operator
+
+```{r eval=FALSE, highlightLines = 1}
+___ %in% ___
+```
+
+One additional, often used special operator is the `%in%` operator. It checks whether or not the contents of one vector are present in another one as well.
+
+In the following example we use the variable `EU` containing the abbreviation of all countries in the European Union. Then, we check whether or not the character `"AU"` is present in the `EU` variable.
+
+```{r echo=T}
+EU <- c("AU","BE","BG","CY","CZ","DE","DK","EE","ES","FI","FR","GR","HR","HU",
+        "IE","IT","LT","LU","LV","MT","NL","PO","PT","RO","SE","SI","SK")
+"AU" %in% EU
+```
+
+The following example extends the search and compares multiple elements with the contents of the `EU` variable. It outputs a logical vector as a result containing a logical value for each element:
+
+```{r echo=T}
+c("AU","HU","UK") %in% EU
+```
+
+As the output shows, the first two character elements `"AU"` and `"HU"` are present in the variable `EU`, however the third element `"UK"` is not.
+
+## Exercise: Use the %in% operator
+
+You are standing in the supermarket and need to determine which you can check-off your `shopping_list`:
+
+- Use the `%in%` operator and determine which `shopping_list` items you can check-off your list based on the items in your `basket`.
+- Print the output of the resulting vector to the console.
+
+<!-- some subsetting with shopping_list[shopping_list %in% basket] or even negated would be cool, but not yet introduced -->
+```{r exercise-01-04-09, exercise=TRUE, includeRecipe=TRUE}
+shopping_list <- c("milk", "eggs", "tomatoes", "beer", "manner")
+basket <- c("bread","eggs","tomatoes")
+```
+
+```{r exercise-01-04-09-hint-1, eval=FALSE}
+shopping_list <- c("milk", "eggs", "tomatoes", "beer", "manner")
+basket <- c("bread","eggs","tomatoes")
+___ %in% ___
+```
+
+```{r exercise-01-04-09-hint-2, eval=FALSE}
+shopping_list <- c("milk", "eggs", "tomatoes", "beer", "manner")
+basket <- c("bread","eggs","tomatoes")
+shopping_list %in% ___
+```
+
+```{r exercise-01-04-09-solution, eval=FALSE}
+shopping_list <- c("milk", "eggs", "tomatoes", "beer", "manner")
+basket <- c("bread","eggs","tomatoes")
+shopping_list %in% basket
+```
+
+```{r exercise-01-04-09-check, eval=FALSE}
+ex() %>% check_predefined_objects(c("shopping_list", "basket"))
+ex() %>% check_operator("%in%") %>% check_result() %>% check_equal()
+```

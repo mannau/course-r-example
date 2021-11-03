@@ -1,0 +1,194 @@
+---
+title: R is everywhere
+tutorial:
+  id: course-r-introduction#01-basics#01-r-is-everywhere
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+library(ggplot2)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+```
+
+## R is everywhere
+
+```{r, recipe=TRUE}
+```
+
+R is widely popular and incredibly useful for people working as Data Scientists or in companies. But you can also use R for more simple things, like creating a nice chart or making a quick calculation. Getting started is pretty straight forward, too.
+
+- Learn what R is all about
+- Get an overview of why R is useful
+- Submit your first code exercise
+
+![R User Groups Worldwide](images/r_user_groups.png){width=100%}
+From https://www.meetup.com/pro/r-user-groups
+
+<!-- - Used by data scientists for Data Cleaning, Transformation, Modelling, Visualization, Reporting -->
+<!-- - Community Effort, Packages -->
+<!-- - Cool Visualizations -->
+<!-- - R in Academics/Research (Reproducible Research) -->
+<!-- - R in Industry (Facebook, AirBnb, Google, Microsoft, Twitter, NYTimes, Lloyd's, ...)  -->
+
+## Introduction to R
+
+> **The most powerful statistical computing language on the planet.**
+>
+> Norman Nie, Founder of SPSS
+
+R is a programming language and environment to work with data. It is loved by statisticians and data scientists for its expressive code syntax and plentiful external libraries and tools and works on all major operating systems. 
+
+It is *the* Swiss army knife for data analysis and statistical computing (and you can make some pretty charts, too!). The R language is easily extensible with packages written by a large and growing community of developers around the world. You can find it pretty much anywhere---it is used by academic institutions, start-ups, international corporations and many more.
+
+This is also reflected by looking at its adoption. Here we can see a large increase in both downloads and number of packages available over the years:
+
+```{r}
+library(ggplot2)
+pkgs <- readRDS("images/pkgs.rds")
+title <- sprintf("CRAN Packages Published as of %s", format(max(pkgs$Date), "%m/%Y"))
+
+p1 <- ggplot(pkgs) + 
+  geom_area(aes(x = Date, y = published), fill = "dodgerblue", color = "dodgerblue3") + 
+  ggtitle("Published R Packages") + 
+  xlab("") + ylab("")
+  #scale_y_continuous(trans='log10')
+
+# Plot monthly totals -----------------------------------------------------
+dat <- readRDS("images/stackoverflow.rds")
+p2 <- ggplot(dat[dat$TagName == "r", ]) + 
+  geom_area(aes(x = Month, y = Questions), fill = "dodgerblue", color = "dodgerblue3") +
+  ggtitle("Questions on Stackoverflow") + 
+  xlab("") + ylab("")
+  #scale_y_continuous(trans='log10')
+
+gridExtra::grid.arrange(p1, p2, nrow=1)  
+```
+
+<!-- - Not only a programming language but a statistical environment -->
+<!-- - Versatile, Swiss Army knife for data science and statistical computing -->
+<!-- - Highly productive interactive language interfacing many external libraries. -->
+<!-- - Great language to work and think with data -->
+
+In 2020 R celebrates its 20th birthday with the release of version 4.0. And yes, it's free and open source &#128512;
+
+<!-- which could also be seen as an open-source re-birth of the S language dating back to 1976. -->
+<!-- - Stems from the programming language `S` -->
+
+<!-- ![](images/algorithm_interface_zoom.png) -->
+
+<!-- Interfaces are central to `R` and always have been (John Chambers) [^1] -->
+
+<!-- [^1]: Bell Labs, Murray Hill NJ. May 5, 1976 -->
+<!-- [^1.1]: Founder of SPSS. He said this after moving to Revolution Analytics (now Microsoft). -->
+
+## Quiz: R Facts
+
+```{r exercise-01-01-01, echo = FALSE}
+question('Which of the following statements about R are correct?',
+  answer("R only works on the Linux operating system.", message = "R works on all major operating systems including Linux, Mac and Windows."),
+  answer("R cannot be used in corporate environments.", message = "R is used at many small and large companies including Microsoft, Google, Facebook, Twitter, AirBnb, McKinsey, Novartis, Roche, Citadel and many more."),
+  answer("R is a programming language geared towards data analysis.", correct = TRUE),
+  answer("R is extensible through packages developed by the community.", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+## Why Use R?
+
+R is a popular language for solving data analysis problems and is also used by people who traditionally do not consider themselves as programmers. When creating charts and visualizations with R, you will find that you have a much greater creative possibilities as opposed to graphical applications, such as Excel.
+
+Here are some of the **features** R is most famous for:
+
+**Visualization**: Creating beautiful graphs and visualizations is one of its biggest strengths. The core language already provides a rich set of tools used for plotting charts and for all kinds of graphics. The sky's the limit.
+
+**Reproducibility**: Unlike spreadsheet software, R code is not coupled to specific datasets and can easily be reused across different projects - even when exceeding more than 1 million rows. Easily build reusable reports and automatically generate new versions as the data changes.
+
+**Advanced modelling**: R provides the biggest and most powerful code base for data analysis in the world. The richness and depth of available statistical models is unparalleled and growing by the day, thanks to the huge community of open source package developers and contributors.
+
+**Automation**: R code can also be used to automate reports or to perform data transformations and model computations. It can also be integrated in automated production workflows, cloud computing environments and modern database systems.
+
+## Quiz: Using R
+
+```{r exercise-01-01-02, echo = FALSE}
+question('What are the main reasons to use R compared to spreadsheet software?',
+  answer("Easy to reproduce results", correct = TRUE),
+  answer("Use huge datasets with more than 1 million rows", correct = TRUE),
+  answer("Support for advanced modelling techniques including Machine Learning", correct = TRUE),
+  answer("Create beautiful visualizations", correct = TRUE),
+  allow_retry = TRUE
+)
+```
+
+## You R in Good Company
+
+<!-- See also https://github.com/ThinkR-open/companies-using-r -->
+<!-- Graph: https://docs.google.com/presentation/d/1tPvEOcSSekhGYiA8lcx-PMem1Q_rIViyIzZKnz6CJl8/edit#slide=id.p -->
+
+R is the de facto standard for statistical computing at academic institutions and companies around the world. Its great support for *literate programming* (code that can be combined with human-readable text) enables researchers and data scientists to create publication-ready reports which are easy to reproduce for reviewers. 
+
+The language has seen a wide adoption in various industries---see some examples below:
+
+![](images/you-r-in-good-company.png)
+
+**Information Technology**
+
+- Microsoft: [Microsoft R Open](https://mran.microsoft.com/open), [TrueSkill(TM)](https://www.microsoft.com/en-us/research/publication/trueskilltm-a-bayesian-skill-rating-system), more [here](https://blog.revolutionanalytics.com/2018/02/what-does-microsoft-do-with-r.html)
+- Google: [R for Marketing Research and Analytics](https://research.google/pubs/pub43342/), [Predicting the Present with Google Trends](https://static.googleusercontent.com/media/www.google.com/fr//googleblogs/pdfs/google_predicting_the_present.pdf)
+- Facebook: [Visualizing Friendships](https://www.facebook.com/notes/facebook-engineering/visualizing-friendships/469716398919), [The Formation of Love](https://www.facebook.com/notes/facebook-data-science/the-formation-of-love/10152064609253859), [Prophet Package](https://facebook.github.io/prophet) for time series forecasting.
+- Others (with links to projects): [AirBnB](https://peerj.com/preprints/3182.pdf), [Uber](https://capetown2017.satrdays.org/talks/satRday-2017-van-heerden.pdf), [Oracle](https://www.oracle.com/database/technologies/datawarehouse-bigdata/oml4r.html), IBM, Twitter, 
+
+**Pharma**: Merck, Genentech (Roche), Novartis, Pfizer
+
+**Newspapers**: The Economist, The New York Times, Financial Times
+
+**Finance**
+
+- Banks: Bank of America, J.P.Morgan, Goldman Sachs, Credit Suisse, UBS, Deutsche Bank
+- Insurances: Lloyd's, Allianz
+  
+See also the [R Consortium page](https://www.r-consortium.org) for further information about industrial partners and initiatives.
+
+## Building Blocks
+
+In the next chapters we will have a look at the most important features and concepts:
+
+1. **Vectors**
+1. **Variables**
+1. **Operators**
+1. **Functions**
+1. **Packages**
+
+So, let's write your first code in R!
+
+## Exercise: Submit your first code
+
+This course has code exercises to help you learn and quickly explore new concepts. After entering code in the editor, hit the "**Submit**" button to execute it. The editor will give you feedback on your submission and displays any output below the editor. If you need some additional help use the "**Get Hint**" button.
+
+To finish your first exercise, press the "**Submit**" button.
+
+```{r exercise-01-01-03, exercise=TRUE}
+"Let's get started!"
+```
+
+```{html exercise-01-01-03-hint-1, engine='html'}
+Hit the <b>Submit</b> button to finish your first R exercise.
+```
+
+```{r exercise-01-01-03-solution}
+"Let's get started!"
+```
+
+```{r exercise-01-01-03-check}
+ex() %>% check_output_expr("\"Let's get started!\"")
+```

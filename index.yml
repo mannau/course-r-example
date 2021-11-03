@@ -1,0 +1,12 @@
+title: Introduction to R
+technologies:
+- R
+image: main/course.svg
+ogImage: main/course_og.png
+abstract: Add your course description here
+advertise: true
+keyfacts:
+- Understand the basic concepts of R.
+- Learn how to use packages and functions.
+- Explore and manipulate data frames with the dplyr package.
+- Create your first data visualizations with the ggplot2 package.

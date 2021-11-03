@@ -1,0 +1,382 @@
+---
+title: Combine values into a vector
+tutorial:
+  id: course-r-introduction#01-basics#02-vectors
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Combine values into a vector
+<!-- incluhttps://www.derstandard.at/story/2000116501480/scott-mcclanahans-sarah-ein-roman-wie-ein-rocksongde c(___, ___, ___)  as well? in current structure it has no unique or own section -->
+
+R always creates lists of values---even when there is only one value in a list. These lists are called *vectors* and they make working with data much easier.
+
+- Everything is a vector
+- Get to know different data types in R
+- Learn how to create vectors
+- Use the `:` operator to create numeric sequences
+- Use the concatenate function `c()` to create vectors of different data types
+<!-- - Coercion of data types  -->
+
+```{r eval=FALSE, recipe=TRUE}
+1:100
+c(1, 2, 3, 4)
+c("abc", "def", "ghi")
+c(TRUE, FALSE, TRUE)
+```
+
+## Introduction to Vectors
+
+<!-- TODO: Insert Vector image `1`, `3`, `2` and `5` -->
+<!-- `"Welcome"`, `"Hi"` and `"Hello"` -->
+
+A vector is a collection of elements of the same kind and the most basic data structure in R. For example, a vector could hold the four numbers `1`, `3`, `2` and `5`. Another vector could be formed with the three text strings `"Welcome"`, `"Hi"` and `"Hello"`. These different kinds of values (numbers, text) are called *data types*.
+
+A single value is also treated as a vector - a vector with only one element in it. As we will see throughout the course, this concept makes R very special. We can manipulate vectors and its values through plenty of operations that are provided by R.
+
+One key advantage of vectors is that we can apply an operation (e.g. a multiplication) to all its values at once instead of going through each item individually. This is called *vectorization*.
+
+<!-- TODO: Insert Image 
+`1`, `3`, `2` `5` * 
+`2`, `5`, `3` `4` = 
+`2`, `15`, `6` `20`
+-->
+
+## Types of vectors
+
+Vectors can only hold elements of the same *data type*. In this course we will work with the following three main data types:
+
+**Numeric** values are numbers. Although they can be further split into whole numbers (integers) and numbers with decimals (doubles), R automatically converts between these sub-types if needed. Therefore, we will collectively refer to them as just `numeric` values.
+
+**Character** values contain textual content. These can be letters, symbols, spaces and numbers as well. They must be enclosed by quotation marks - either single quotes `'___'` or double quotes `"___"`.
+
+**Logical** values can either be `TRUE` or `FALSE`. They are also often referred to as *boolean* or *binary* values. Because a `logical` value can only be `TRUE` or `FALSE` they are most often used to answer simple questions like "Is 1 greater than 2?" or "Is it past 3 o'clock?". These kind of questions only need answers like "Yes" (`TRUE`) or "No" (`FALSE`). Importantly, in R `logical` values are case sensitive, which means they have to be written with capital letters.
+
+## Quiz: Data Types
+
+```{r exercise-01-02-00, echo = FALSE}
+question('Which of the following options are valid data types in R?',
+  answer("Numeric", correct = TRUE),
+  answer("Bytes"),
+  answer("Logical", correct = TRUE),
+  answer("Simples"),
+  allow_retry = TRUE
+)
+```
+
+## Creating a sequence of numbers
+
+```{r eval=FALSE, highlightLines=1}
+1:100
+c(1, 2, 3, 4)
+c("abc", "def", "ghi")
+c(TRUE, FALSE, TRUE)
+```
+
+In R, even a single value is considered a vector. Creating a vector of one element is as simple as typing its value:
+
+```{r echo=TRUE}
+4
+```
+
+To create a sequence of numeric values we can use the `:` operator, which takes two numbers and outputs a vector of all whole numbers in that range:
+
+```{r echo=TRUE}
+2:11
+```
+
+The `:` operator creates a vector from the number on the left-hand side to the number on the right-hand side. Therefore, the order of numbers is important. If we define the previous example the other way around, we get a vector of descending numbers, instead of ascending:
+
+```{r echo=TRUE}
+11:2
+```
+
+The `:` operator comes handy when we need a vector of every whole number in a given range. However, if we need a vector where the numbers aren't linear, we require something different.
+
+## Exercise: Use the : operator
+
+Use the `:` operator and create a vector from 2 to 6
+
+```{r exercise-01-02-01, exercise=TRUE}
+
+```
+
+```{r exercise-01-02-01-hint-1, eval=FALSE}
+___:___
+```
+
+```{r exercise-01-02-01-hint-2, eval=FALSE}
+2:___
+```
+
+```{r exercise-01-02-01-solution}
+2:6
+```
+
+```{r exercise-01-02-01-check} 
+ex() %>% 
+  check_operator(":") %>% 
+  check_result() %>% 
+  check_equal()
+ex() %>% check_output_expr("2:6")
+```
+
+## Concatenating numeric values to a vector
+
+```{r eval=FALSE, highlightLines=2}
+1:100
+c(1, 2, 3, 4)
+c("abc", "def", "ghi")
+c(TRUE, FALSE, TRUE)
+```
+
+We can combine multiple numbers into a single vector using the concatenate function `c()` which links elements between the round braces together into a chain. Multiple elements need to be separated by commas.
+
+To create our first vector holding seven different numbers we can use the concatenate function `c()` like so:
+
+```{r echo=TRUE}
+c(7, 4, 2, 5, 5, 22, 1)
+```
+
+Note, that the "`[1]`" sign before the output above is added by R, and is always added automatically when printing out vectors. If your vectors become bigger you will see more of these prefixes. Just know that they are only added for informational purposes by R, and that they are there to help you while coding. They are not part of the vector itself.
+
+You can see this more clearly, when the output spans over multiple lines:
+```{r echo=T}
+1:60
+```
+
+## Exercise: Concatenate numbers
+
+Use the concatenate function `c()` and create a vector containing the numbers 2, 3, 6 and 7
+
+```{r exercise-01-02-02, exercise=TRUE}
+
+```
+
+```{r exercise-01-02-02-hint-1, eval=FALSE}
+c(___)
+```
+
+```{r exercise-01-02-02-hint-2, eval=FALSE}
+c(2, ___, ___, ___)
+```
+
+```{r exercise-01-02-02-hint-3, eval=FALSE}
+c(2, 3, ___, ___)
+```
+
+```{r exercise-01-02-02-solution}
+c(2, 3, 6, 7)
+```
+
+```{r exercise-01-02-02-check}
+ex() %>% check_function("c")
+ex() %>% check_output_expr("c(2, 3, 6, 7)")
+```
+
+## Creating character vectors
+
+```{r eval=FALSE, highlightLines=3}
+1:100
+c(1, 2, 3, 4)
+c("abc", "def", "ghi")
+c(TRUE, FALSE, TRUE)
+```
+
+To create a character vector of one element, all we need to do is to type out the text. Remember that we need to use quotation marks (`" "`) around character values:
+```{r echo=T}
+"golden retriever"
+```
+
+To create a character vector of multiple elements, we can again use the concatenate function `c()`. This time we will use it with characters instead of numbers:
+
+```{r echo=T}
+c("golden retriever", "labrador is a family dog", "beagle")
+```
+
+## Exercise: Create a character vector
+
+Create a character vector with the single element: `"R is awesome!"`
+
+```{r exercise-01-02-03, exercise=TRUE}
+
+```
+
+```{r exercise-01-02-03-hint-1, eval=FALSE}
+"___"
+```
+
+```{r exercise-01-02-03-hint-2, eval=FALSE}
+"R ___ ___!"
+```
+
+```{r exercise-01-02-03-solution}
+"R is awesome!"
+```
+
+```{r exercise-01-02-03-check}
+ex() %>% check_output_expr('"R is awesome!"')
+```
+
+<!-- Create a character vector of one element: "Hi, my name is ____". Replace ____ with your actual name and don't forget to use quotation marks!  -->
+
+<!-- ```{r exercise-01-02-03, exercise=TRUE} -->
+
+<!-- ``` -->
+
+<!-- ```{r exercise-01-02-03-hint-1, eval=FALSE} -->
+<!-- "___" -->
+<!-- ``` -->
+
+<!-- ```{r exercise-01-02-03-hint-2, eval=FALSE} -->
+<!-- "Hi my name is ___" -->
+<!-- ``` -->
+
+<!-- ```{r exercise-01-02-03-check} -->
+<!-- ex() %>% -->
+<!--   check_output("Hi, my name is [A-Za-z]+") -->
+<!-- ``` -->
+
+## Exercise: Concatenate text
+
+Use the concatenate function `c()` and create a vector containing four elements: 
+
+1. `"wombat"`, 
+2. `"fennec fox"`, 
+3. `"bearded dragon"` and 
+4. `"tasmanian devil"`
+
+```{r exercise-01-02-04, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-02-04-hint-1, eval=FALSE}
+c()
+```
+
+```{r exercise-01-02-04-hint-2, eval=FALSE}
+c(___, ___, ___, ___)
+```
+
+```{r exercise-01-02-04-solution}
+c("wombat","fennec fox", "bearded dragon", "tasmanian devil")
+```
+
+```{r exercise-01-02-04-check}
+ex() %>% check_function("c") %>% {
+  check_arg(., "..1") %>% check_equal()
+  check_arg(., "..2") %>% check_equal()
+  check_arg(., "..3") %>% check_equal()
+  check_arg(., "..4") %>% check_equal()
+  check_result(.) %>% check_equal()
+}
+ex() %>% check_output_expr('c("wombat","fennec fox", "bearded dragon", "tasmanian devil")')
+```
+
+## Creating logical vectors
+
+```{r eval=FALSE, highlightLines=4}
+1:100
+c(1, 2, 3, 4)
+c("abc", "def", "ghi")
+c(TRUE, FALSE, TRUE)
+```
+
+Logical vectors can only hold the values `TRUE` and `FALSE`. To create a logical vector with a single value, type out one of the valid values `TRUE` or `FALSE`. Remember that they must be written with capital letters:
+
+<!-- In certain situations a `TRUE` or `FALSE` value cannot be determined, for example when a value in a comparison is missing. In these cases the logical vector might contain a third type of value: `NA` standing for not available. #remark: this is actually true for other vectors as well, if we never come across missing values in the course I think it's better to just leave it out. NA's are more of a thing in data frames anyway-->
+
+```{r echo=T}
+TRUE
+```
+
+Similarly to other types of vectors, we can use the concatenate function `c()` to create a logical vector of multiple elements:
+```{r echo=T}
+c(TRUE, FALSE, TRUE, FALSE, TRUE)
+```
+
+## Exercise: Concatenate logical values
+
+Use the concatenate function `c()` and create a vector containing the three elements: `TRUE`, `FALSE` and `TRUE`
+
+```{r exercise-01-02-05, exercise=TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-02-05-hint-1, eval=FALSE}
+c()
+```
+
+```{r exercise-01-02-05-hint-2, eval=FALSE}
+c(___, ___, ___,)
+```
+
+```{r exercise-01-02-05-hint-3, eval=FALSE}
+c(TRUE, ___, ___,)
+```
+
+```{r exercise-01-02-05-solution}
+c(TRUE, FALSE, TRUE)
+```
+
+```{r exercise-01-02-05-check}
+ex() %>% check_function("c") %>% {
+  check_arg(., "..1") %>% check_equal()
+  check_arg(., "..2") %>% check_equal()
+  check_arg(., "..3") %>% check_equal()
+  check_result(.) %>% check_equal()
+}
+ex() %>% check_output_expr("c(TRUE, FALSE, TRUE)")
+```
+
+## Quiz: Vectors Recap
+
+```{r exercise-01-02-06, echo = FALSE}
+question('Which of the following statements about vectors are correct?',
+  answer("In R a single value is a vector as well", correct = TRUE),
+  answer("A vector can contain numbers and characters simultaneously", message = "Vectors can only contain elements of the same data type."),
+  answer("Elements of a character vector must be enclosed by quotation marks", correct = TRUE),
+  answer("`TRUE` and `true` are both the same logical value", message = "Only TRUE is a logical value. It must be written with capital letters."),
+  allow_retry = TRUE
+)
+```
+<!-- ## Coercion -->
+<!-- As you already know, vectors can only contain values of the same data type. So what happens if we try to break this rule? Let's take a look at an example: -->
+<!-- ```{r echo=T} -->
+<!-- c(TRUE, 1, 5, "dog") -->
+<!-- ``` -->
+<!-- The output of this example is a character vector. This happens because R converts the values to a common data type. This is called coercion. First it searches the best suiting data type in the vector. Generally speaking character values cannot be converted to any other data type. However, all other data types can be converted to characters. Thus, R converts the values `TRUE`, `1` and `5` to character values and outputs a character vector. -->
+<!-- If we exclude the character value in the concatenate function, R needs to find another option: -->
+<!-- ```{r echo=T} -->
+<!-- c(TRUE, 1, 5) -->
+<!-- ``` -->
+<!-- In this example the result is a numeric vector. This happens because, generally speaking, numbers cannot be converted to logical values. However, `TRUE` and `FALSE` values can be converted to the number 1 and 0 in programming. Thus, the output can be a numeric vector. -->
+<!-- To summarize and generalize these examples, we can define a hierarchy of coercion: -->
+<!-- 1. Character -->
+<!-- 2. Numeric -->
+<!-- 3. Logical -->
+<!-- Logical values can be converted to both numeric and character values. Numeric values can only be converted into character values. Characters cannot be converted to any other data type. -->
+<!-- ## Quiz -->
+<!-- ```{r exercise-01-02-07, echo = FALSE} -->
+<!-- question('What type of vector would be the output of the following code: c(1,TRUE,"word",FALSE)?', -->
+<!--   answer("Logical"), -->
+<!--   answer("Numeric"), -->
+<!--   answer("Character", correct = TRUE), -->
+<!--   answer("There would be no output, just an error message."), -->
+<!--   allow_retry = TRUE -->
+<!-- ) -->
+<!-- ``` -->

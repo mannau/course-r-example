@@ -1,0 +1,228 @@
+---
+title: Build a data frame from vectors
+runtime: shiny_prerendered
+tutorial:
+  version: 0.1
+  id: course-r-introduction#02-data-frames-tibbles#01-build-data-frame-from-vectors
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Build a data frame from vectors
+
+Tabular data is the most common format used by data scientists. In R, tables are represented through data frames. They can be inspected by printing them to the console.
+
+- Understand why data frames are important
+- Interpret console output created by a data frame
+- Create a new data frame using the `data.frame()` function
+- Define vectors to be used for single columns
+- Specify names of data frame columns
+
+```{r eval=FALSE, recipe=TRUE}
+data.frame(___ = ___, 
+           ___ = ___, 
+           ...)
+```
+
+## Introduction to Data Frames
+
+In analysis and statistics, tabular data is the most important data structure. It is present in many common formats like Excel files, comma separated values (CSV) or databases. R integrates tabular data objects as first-class citizens into the language through *data frames*. Data frames allow users to easily read and manipulate tabular data within the R language.
+
+Let's take a look at a data frame object named `Davis`, from the package **carData**, which includs height and weight measurements for 200 men and women:
+
+```{r, include=FALSE}
+library(carData)
+options(max.print = length(Davis) * 3)
+Davis
+```
+
+```{r, echo = TRUE}
+Davis
+```
+
+From the printed output we can see that the data frame spans over 200 **rows** (3 printed, 197 omitted) and 5 **columns**. In the example above, each row contains data of one person through **attributes**, which correspond to the columns `sex`, `weight`, `height`, reported weight `repwt` and reported height `repht`. 
+
+For example, the first row in the table specifies a `M`ale weighing `77`kg and has a height of `182`cm. The reported weights are very close with `77`kg and `180`cm, respectively.
+
+The rows in a data frame are further identified by *row names* on the left which are simply the row numbers by default. In the case of the `Davis` dataset above the row names range from 1 to 200.
+
+## Quiz: Data Frame Output
+
+<!--does the output look the same on the website? choose other dataset?-->
+```{r, echo=FALSE}
+library(carData)
+options(max.print = length(Salaries) * 3)
+Salaries
+```
+
+The data frame above shows the nine-month academic salary for Assistant Professors, Associate Professors and Professors in a college in the U.S.
+
+```{r quiz-02-01-01, echo = FALSE}
+question('Which answers about the data frame printed above are correct?',
+  answer("The data frame has 3 rows.", message = "There have been some rows omitted at the data frame output as indicated by the bottom line."),
+  answer("The data frame has 394 rows.", message = "The bottom line of the data frame output shows only the omitted rows."),
+  answer("The data frame has 397 rows.", correct = TRUE),
+  answer("The data frame has 6 attributes.", correct = TRUE),
+  answer("The attribute names contain `Prof` and `AsstProf`", message = "These are the attribute values of `rank`."),
+  allow_retry = TRUE
+)
+```
+
+## Quiz: Data Frame Output (2)
+
+<!--does the output look the same on the website? choose other dataset?-->
+```{r, echo=FALSE}
+library(carData)
+options(max.print = length(Salaries) * 3)
+Salaries
+```
+
+The data frame above shows the nine-month academic salary for Assistant Professors, Associate Professors and Professors in a college in the U.S.
+
+```{r quiz-02-01-02, echo = FALSE}
+question('Which answers about the first three faculty members are correct?',
+  answer("All three are male.", correct = TRUE),
+  answer("The salaries of all three members are about the same.", message = "The two `Prof`essors in the first two rows earn about double compared to the Assistant Professor in row three."),
+  answer("The Professor in row three is most probably be the oldest.", message = "The professor in row three most probably the youngest according to `yrs.since.phd` and `yrs.service`."),
+  answer("All shown professors are from the same discipline.", correct = TRUE),
+  answer("The highest salary amongst the three Professors is $139,750.", message = "The highest salary is $173,200."),
+  allow_retry = TRUE
+)
+```
+
+## Creating Data Frames
+
+```{r eval=FALSE, highlightLines=1:3}
+data.frame(___ = ___, 
+           ___ = ___, 
+           ...)
+```
+
+Data frames hold tabular data in various columns or *attributes*. Each column is represented by a vector of different *data types* like numbers or characters. The `data.frame()` function supports the construction of data frame objects by combining different vectors to a table. To form a table, vectors are required to have equal lengths. A data frame can also be seen as a collection of vectors connected together to form a table.
+
+Let's create our first data frame with four different people including their ids, names and indicators if they are female or not. Each of these attributes is created by a different vector of different data types (numeric, character and logical). The attributes are finally combined to a table using the `data.frame()` function:
+
+```{r, echo=TRUE}
+data.frame(
+  c(1, 2, 3, 4),
+  c("Louisa", "Jonathan", "Luigi", "Rachel"),
+  c(TRUE, FALSE, FALSE, TRUE)
+)
+```
+
+The resulting data frame stores the values of each vector in a different column. It has four rows and three columns. However, the column names printed on the first line seem to include the column values separated by dots which is a very strange naming scheme! 
+
+Column names can be included into the `data.frame()` construction as argument names preceding the values of column vectors. To improve the column naming of the previous data frame we can write
+
+```{r, echo=TRUE}
+data.frame(
+  id = c(1, 2, 3, 4),
+  name = c("Louisa", "Jonathan", "Luigi", "Rachel"),
+  female = c(TRUE, FALSE, FALSE, TRUE)
+)
+```
+
+The resulting data frame includes the column names needed to see the actual meaning of the different columns.
+
+## Exercise: Creating Your First Data Frame
+
+```{r, results='asis', echo=FALSE}
+knitr::kable(data.frame(
+  weekday = c("Monday", "Tuesday", "Wednesday"),
+  temperature = c(28, 31, 25),
+  hot = c(FALSE, TRUE, FALSE)
+))
+```
+
+Let's create a data frame as shown above using the `data.frame()` function. The resulting data frame should consist of the three columns `weekday`, `temperature` and `hot`:
+
+1. The first column named `weekday` contains the weekday names `"Monday"`, `"Tuesday"`, `"Wednesday"`.
+2. The second column named `temperature` contains the temperatures (in degrees Celsius) as `28`, `31`, `25`.
+3. The third column named `hot` contains the logical values `FALSE`, `TRUE`, `FALSE`.
+
+Store the final data frame in the variable `temp` and print its output to the console:
+
+```{r exercise-02-01-03, exercise=TRUE}
+temp <- data.frame(
+  
+
+)
+temp
+```
+
+```{r exercise-02-01-03-hint-1, eval=FALSE}
+temp <- data.frame(
+  weekday = ___,
+  temperature = ___,
+  hot = ___
+)
+temp
+```
+
+```{r exercise-02-01-03-hint-2, eval=FALSE}
+temp <- data.frame(
+  weekday = c("Monday", "Tuesday", "Wednesday"),
+  temperature = ___,
+  hot = ___
+)
+temp
+```
+
+```{r exercise-02-01-03-hint-3, eval=FALSE}
+temp <- data.frame(
+  weekday = c("Monday", "Tuesday", "Wednesday"),
+  temperature = c(28, 31, 25),
+  hot = ___
+)
+temp
+```
+
+```{r exercise-02-01-03-solution}
+temp <- data.frame(
+  weekday = c("Monday", "Tuesday", "Wednesday"),
+  temperature = c(28, 31, 25),
+  hot = c(FALSE, TRUE, FALSE)
+)
+temp
+```
+
+```{r exercise-02-01-03-check}
+dftemp <- ex() %>% check_object("temp")
+dftemp %>% check_column("weekday") %>% check_equal()
+dftemp %>% check_column("temperature") %>% check_equal()
+dftemp %>% check_column("hot") %>% check_equal()
+ex() %>% check_object("temp") %>% check_equal()
+```
+
+## Quiz: Which statements are true about this data frame?
+
+```{r, echo=TRUE, eval=FALSE}
+price <- c(28, 31, 25)
+data.frame(
+  weekday = c("Monday", "Tuesday", "Wednesday", "Thursday"),
+  price = price,
+  expensive = price > 30
+)
+```
+
+```{r quiz-02-01-04, echo = FALSE}
+question('Which statements are true about the data frame above?',
+  answer("The `data.frame()` function will fail because the column `expensive` is no vector.", message = "The column `expensive` is a logical vector resulting from price > 30."),
+  answer("The `data.frame()` function will not fail", message = "Check the lengths of the data frame vectors again."),
+  answer("The `data.frame()` function fails because the lengths of the vectors are different", correct = TRUE),
+   answer('The command would work if `weekday` had the values `c("Monday", "Tuesday", "Wednesday")`', correct = TRUE),
+  allow_retry = TRUE
+)
+```

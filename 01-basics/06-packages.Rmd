@@ -1,0 +1,101 @@
+---
+title: Use existing functions and data through packages
+tutorial:
+  id: course-r-introduction#01-basics#06-packages
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Use existing functions and data through packages
+
+Packages give you access to a huge set of functions and datasets, most of which are provided by the generous R community. They are the secret sauce which makes it possible to use R for pretty much anything you can imagine. Additionally, lots of packages are open source which can be a great learning resource.
+
+- Get to know the concept of packages in R
+- Learn how to call functions from packages
+
+```{r eval=FALSE, recipe=TRUE}
+library(___)
+data(___)
+```
+
+## Introduction to packages
+
+Packages are one of the best things in R. They add new functions and features to the language environment and extend its applications over many different use cases and domains. Packages are supported by a large community of developers and allow R to connect to many different external algorithms and libraries---many of them even written in different programming languages.
+
+Contributors all over the world including developers or domain experts in physics, finance, statistics etc. create a lot of additional content, such as custom functions for specific use cases. These functions, together with documentation, help files and datasets can be gathered into packages. Packages can be made public through *package repositories* so that anyone can install and use them. The most popular package repository is [CRAN](https://cran.r-project.org/) which hosts over 15,000 packages.
+
+```{r}
+library(ggplot2)
+pkgs <- readRDS("images/pkgs.rds")
+title <- sprintf("CRAN Packages Published as of %s", format(max(pkgs$Date), "%m/%Y"))
+ggplot(pkgs) + 
+  geom_area(aes(x = Date, y = published), fill = "dodgerblue", color = "dodgerblue3") + 
+  ggtitle("Published R Packages") + 
+  xlab("") + ylab("")
+  #scale_y_continuous(trans='log10')
+```
+
+## Calling a package
+
+As a demonstration we will use the `generate_primes()` function from the `primes` package. This function takes two numbers as parameters and outputs all prime numbers inside their range.
+
+In order to use a package we first need to load it. This can be done by applying the `library()` function and inserting the name of the package as the first argument of the function. After that, we have access to all of the content in the package and can use functions from it as usual.
+
+```{r library, echo=TRUE}
+library(primes)
+generate_primes(min = 500, max = 550)
+```
+
+## Exercise: Check for leap year
+
+1. Load the `lubridate` package. 
+2. Use the `leap_year` function to check if 2020 is leap year or not. (Hint: the function takes the year in the form of a number as the first parameter `date` )
+
+```{r exercise-01-06-00, exercise = TRUE, message=F, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-06-00-hint-1, eval=FALSE}
+library(___)
+```
+
+```{r exercise-01-06-00-hint-2, eval=FALSE}
+library(___)
+leap_year(___)
+```
+
+```{r exercise-01-06-00-hint-3, eval=FALSE}
+library(lubridate)
+leap_year(___)
+```
+
+```{r exercise-01-06-00-solution}
+library(lubridate)
+leap_year(2020)
+```
+
+```{r exercise-01-06-00-check, eval=FALSE}
+ex() %>%
+  check_library("lubridate") %>%
+  check_function("leap_year") %>%
+  check_result() %>%
+  check_equal()
+ex() %>% check_output_expr("leap_year(2020)")
+```
+
+
+<!-- TODO: ADD data -->

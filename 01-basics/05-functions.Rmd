@@ -1,0 +1,187 @@
+---
+title: Call existing R code through functions
+tutorial:
+  id: course-r-introduction#01-basics#05-functions
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Call existing R code through functions
+
+When you write code, functions are your best friends. They can make hard things very easy or provide new functionality in a nice way. Through functions you gain access to all the powerful features R has to offer.
+
+- Call functions with function names and round brackets
+- Use basic mathematical functions on vectors
+- Customize functions through parameters
+<!-- - Mandatory vs optional parameters --><!-- I did cover optional ones (customize section) in the sense of default values. We could include optional ones in the sense that they're NULL on default, but I there are no easy examples and thus far NULL was not introduced -->
+- Create number sequences using `seq()`
+- Create random numbers using `runif()`
+- Sample vectors  using `sample()`
+
+```{r eval=FALSE, recipe=TRUE}
+abs(___)
+sqrt(___)
+seq(___)
+runif(___)
+```
+
+
+
+<!-- - Parameter Matching through names -->
+<!-- - Mandatory vs optional parameters -->
+<!-- - Use `args()` to determine which parameters are required -->
+<!-- - Optional: Get function source code by typing function name -->
+
+## Introduction to functions
+
+<!-- TODO: Reformulate -->
+
+Functions in any programming language can be described as predefined, reusable code intended to accomplish a specific task. Functions in R can be used by using their name and round brackets right after the that. Inside the brackets, we can specify parameters for the function. One function we have already used extensively is the concatenate function `c()`.
+
+A simple function for example is `abs()` which is used to get the absolute value of a number. In the following example, the function is given `-3` as input and returns the result `3`:
+
+```{r echo=TRUE}
+abs(-3)
+```
+
+## Exercise: Use the sqrt() function
+
+Use the `sqrt()` function to get the square-root of 8.
+
+```{r exercise-01-05-00, exercise = TRUE, includeRecipe=TRUE}
+
+```
+
+```{r exercise-01-05-00-hint-1, eval=FALSE}
+sqrt(___)
+```
+
+```{r exercise-01-05-00-solution}
+sqrt(8)
+```
+
+```{r exercise-01-05-00-check, eval=FALSE}
+ex() %>%
+  check_function("sqrt") %>%
+  check_arg("x") %>%
+  check_equal()
+ex() %>% check_output_expr("sqrt(8)")
+```
+
+## Customizing functions through parameters
+
+Functions take parameters, that customize them for the given task. For example, the `runif()` function generates uniformly distributed values, which means that all outcomes have the same probability. By default, it takes the following parameters:
+
+```{r echo=T, eval=FALSE}
+runif(n, min = 0, max = 1)
+```
+
+The first parameter `n` is the number of values we want to generate. This is a mandatory parameter, that we need to define, in order for the function to work.
+
+On the other hand, we can see that some of the parameters have default values defined by the equals sign `=`. This means that if we don't explicitly specify these parameter in the brackets, the function will take the default ones. Let's take a look at an example:
+
+```{r echo=T}
+runif(n = 5)
+```
+
+The output is a numeric vector of 5 numbers. Each of them is between 0 and 1, since we did not change the default setting. If we changed the parameters `min` and `max` as well, we could further customize the output:
+
+```{r echo=T}
+runif(n = 5, min = 8, max = 9)
+```
+
+It is also possible to leave out the name of the parameters and simply type in the input values like this:
+```{r echo=TRUE}
+runif(5, 8, 9)
+```
+
+However, in this case we must be cautious about the order of inputs, since each function has a default order for the parameters. If we don't explicitly name the parameters we are setting, R will assume, that we set them in the predefined order.
+
+## Exercise: Use the sample() function
+
+The `sample()` function takes a vector and returns a random sample from it. The first two of its parameters are:
+
+- `x`, which defines the vector
+- `size`, which defines the number of elements we want to include in the random sample
+
+Use the `sample()` function and sample 5 random values from the `full` variable. 
+
+```{r exercise-01-05-01, exercise = TRUE, includeRecipe=TRUE}
+full <- c(7, 32, 4, 27, 48, 2, 1, 9, 27, 7)
+```
+
+```{r exercise-01-05-01-hint-1, eval=FALSE}
+sample(___, ___)
+```
+
+```{r exercise-01-05-01-hint-2, eval=FALSE}
+sample(x = ___, size = ___)
+```
+
+```{r exercise-01-05-01-solution}
+full <- c(7, 32, 4, 27, 48, 2, 1, 9, 27, 7)
+sample(x = full, size = 5)
+```
+
+```{r exercise-01-05-01-check}
+ex() %>% check_predefined_objects("full")
+ex() %>%
+  check_function("sample") %>% {
+    check_arg(., "x") %>% check_equal()
+    check_arg(., "size") %>% check_equal()
+  }
+```
+
+## Exercise: Use the seq() function
+
+The `seq()` function creates a sequence of whole numbers. The first three of its parameters are: `from`, `to` and `by`. 
+
+- `from` defines the start of the sequence
+- `to` defines the end of the sequence
+- `by` sets the steps between the single values
+
+Use the `seq()` function and create a sequence of numbers from 2 to 10 but only include every second value. Thus, the output should be: `2`, `4`, `6`, `8`, `10`.
+
+```{r exercise-01-05-02, exercise = TRUE}
+
+```
+
+```{r exercise-01-05-02-hint-1, eval=FALSE}
+seq(___)
+```
+
+```{r exercise-01-05-02-hint-2, eval=FALSE}
+seq(from = ___, to = ___, by = ___)
+```
+
+```{r exercise-01-05-02-hint-3, eval=FALSE}
+seq(from = 2, to = ___, by = ___)
+```
+
+```{r exercise-01-05-02-solution}
+seq(from = 2, to = 10, by = 2)
+```
+
+```{r exercise-01-05-02-check}
+ex() %>%
+  check_function("seq") %>% {
+    check_arg(., "from") %>% check_equal()
+    check_arg(., "to") %>% check_equal()
+    check_arg(., "by") %>% check_equal()
+  }
+ex() %>% check_output_expr("seq(from = 2, to = 10, by = 2)")
+```

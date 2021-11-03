@@ -1,0 +1,188 @@
+---
+title: Select first or last rows of a data frame
+tutorial:
+  id: course-r-introduction#02-data-frames-tibbles#05-select-first-last-rows
+  version: 0.1
+runtime: shiny_prerendered
+output:
+  learnr::tutorial:
+    df_print: default
+    progressive: false
+    allow_skip: false
+usagePlan: free
+---
+
+```{r setup, include=FALSE}
+library(testwhat)
+library(learnr)
+library(carData)
+
+tutorial_options(exercise.timelimit = 60, exercise.checker = testwhat_learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Select first or last rows of a data frame
+
+We often do not need to look at all the contents of a data frame in the console. Instead, only parts of it are sufficient like the top or bottom retrieved through the `head()` and `tail()` functions.
+
+- Select the top of a data frame
+- Select the bottom of a data frame
+- Specify the number of lines to select through the parameter `n`
+
+```{r eval=FALSE, recipe=TRUE}
+head(___, n = ___)
+tail(___, n = ___)
+```
+
+## Selecting the top of a data frame
+
+```{r eval=FALSE, highlightLines=1}
+head(___, n = ___)
+tail(___, n = ___)
+```
+
+Data frames can span a large number of rows and columns. Based on the printed output in the console it can be hard to get an initial impression of the data inside the data frame. This issue is not so much of a problem for tibbles which have a nicer console output. Additionally, it can be helpful to easily retrieve the first rows in one command without any indexing or additional packages.
+
+The `TitanicSurvival` dataset contains data of 1309 passengers represented as rows. A simple print of the dataset would print all passengers, filling up the entire console. Instead, the `head()` function shows only the first 6 rows of a data frame including its column names:
+
+```{r, echo=TRUE}
+head(TitanicSurvival)
+```
+
+The number of columns can be tuned using the parameter `n`. To extract only the first three rows from the data set you can write:
+
+```{r, echo=TRUE}
+head(TitanicSurvival, n = 3)
+```
+
+## Exercise: Select the top of a data frame
+
+The `salaries_sort` dataset contains the 2008-09 nine-month academic salary for professors from a college in the US. The dataset is sorted by `salary` in ascending order.
+
+Inspect the 10 lowest paid professors by selecting the first 10 rows using the `head()` function.
+
+```{r exercise-02-05-01-setup}
+salaries_sort <- Salaries[order(Salaries$salary),]
+```
+
+
+```{r exercise-02-05-01, exercise=TRUE, packagesLoaded="carData"}
+salaries_sort
+```
+
+```{r exercise-02-05-01-hint-1, eval=FALSE}
+head(salaries_sort)
+```
+
+```{r exercise-02-05-01-hint-2, eval=FALSE}
+head(salaries_sort, n = ___)
+```
+
+```{r exercise-02-05-01-solution, eval=FALSE}
+head(salaries_sort, n = 10)
+```
+
+```{r exercise-02-05-01-check}
+ex() %>% check_function("head") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_arg(., "n") %>% check_equal()
+}
+ex() %>% check_output_expr("head(salaries_sort, n = 10)")
+```
+
+## Selecting the bottom of a data frame
+
+```{r eval=FALSE, highlightLines=2}
+head(___, n = ___)
+tail(___, n = ___)
+```
+
+The `tail()` function can be used to select the bottom rows of a data frame. Similar to the `head()` function it also accepts a parameter `n` to specify the number rows to be returned.
+
+For example, to select the last five rows from the `TitanicSurvival` dataset you can write:
+
+```{r, echo=TRUE}
+tail(TitanicSurvival, n = 5)
+```
+
+The head and tail functions can also be combined to select a fragment of the data set from the middle. To select the first five rows from the bottom 500 rows you can write:
+
+```{r, echo=TRUE}
+head(tail(TitanicSurvival, n = 500), n = 5)
+```
+
+## Exercise: Select the bottom of a data frame
+
+The `salaries_sort` dataset contains the 2008-09 nine-month academic salary for professors from a college in the US. The dataset is sorted by `salary` in ascending order.
+
+Inspect the 20 highest paid professors by selecting the last 20 rows using the `tail()` function.
+
+```{r exercise-02-05-02-setup}
+salaries_sort <- Salaries[order(Salaries$salary),]
+```
+
+
+```{r exercise-02-05-02, exercise=TRUE, packagesLoaded="carData"}
+salaries_sort
+```
+
+```{r exercise-02-05-02-hint-1, eval=FALSE}
+tail(salaries_sort)
+```
+
+```{r exercise-02-05-02-hint-2, eval=FALSE}
+tail(salaries_sort, n = ___)
+```
+
+```{r exercise-02-05-02-solution, eval=FALSE}
+tail(salaries_sort, n = 20)
+```
+
+```{r exercise-02-05-02-check}
+ex() %>% check_function("tail") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_arg(., "n") %>% check_equal()
+}
+ex() %>% check_output_expr("tail(salaries_sort, n = 20)")
+```
+
+## Exercise: Select the top from the bottom data frame
+
+The `salaries_sort` dataset contains the 2008-09 nine-month academic salary for `r nrow(Salaries)` Professors from a college in the US. The dataset is sorted by the `salary` in ascending order. 
+
+Inspect the 10 professors around the median salary by
+
+1. Selecting the bottom 200 professors using the `tail()` function
+1. Selecting the top 10 professors out of the bottom 200
+
+```{r exercise-02-05-03-setup}
+salaries_sort <- Salaries[order(Salaries$salary),]
+```
+
+```{r exercise-02-05-03, exercise=TRUE, packagesLoaded="carData"}
+salaries_sort
+```
+
+```{r exercise-02-05-03-hint-1, eval=FALSE}
+tail(salaries_sort, n = ___)
+```
+
+```{r exercise-02-05-03-hint-2, eval=FALSE}
+head(tail(salaries_sort, n = ___), n = ___)
+```
+
+```{r exercise-02-05-03-solution, eval=FALSE}
+head(tail(salaries_sort, n = 200), n = 10)
+```
+
+```{r exercise-02-05-03-check}
+ex() %>% check_function("tail") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_arg(., "n") %>% check_equal()
+}
+ex() %>% check_function("head") %>% {
+  check_arg(., "x") %>% check_equal()
+  check_arg(., "n") %>% check_equal()
+}
+ex() %>% check_output_expr("head(tail(salaries_sort, n = 200), n = 10)")
+```

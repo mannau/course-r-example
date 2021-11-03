@@ -1,0 +1,7 @@
+title: Basics
+description: >-
+    Start your R journey and learn the most fundamental building blocks of the environmenent. 
+    Learn how to use and assign vectors with operators and functions. Use packages to access functions and 
+    data from external sources.
+image: badge.svg
+badgeTitle: Base-R Level 1
