@@ -4,9 +4,10 @@ technologies:
 image: main/course.svg
 ogImage: main/course_og.png
 abstract: Add your course description here
-advertise: true
+advertise: false
+draft: true
 keyfacts:
-- Understand the basic concepts of R.
-- Learn how to use packages and functions.
-- Explore and manipulate data frames with the dplyr package.
-- Create your first data visualizations with the ggplot2 package.
+- Short and concise key facts here
+- Each just 1 line with the most important information
+- No need to use periods at the end
+- Up to four key facts are perfect
