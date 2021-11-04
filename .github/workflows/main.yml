@@ -18,3 +18,12 @@ jobs:
         with:
           api-key: ''
           course-id: 'course-34e99210-3c9c-11ec-a514-555d2218c5a9'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GIT_PAT: ${{ secrets.GIT_PAT }}
+          QKEY_PROD: ${{ secrets.QKEY_PROD }}
+          QKEY_DEV: ${{ secrets.QKEY_DEV }}
+          CLOUDFRONT_CLIENT_DEV: ${{ secrets.CLOUDFRONT_CLIENT_DEV }}
+          CLOUDFRONT_DEV: ${{ secrets.CLOUDFRONT_DEV }}
+          CLOUDFRONT_CLIENT_PROD: ${{ secrets.CLOUDFRONT_CLIENT_PROD }}
+          CLOUDFRONT_PROD: ${{ secrets.CLOUDFRONT_PROD }}
