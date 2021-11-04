@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           lfs: true
-      - uses: quantargo/action-course-deploy@v1.2.4
+      - uses: quantargo/action-course-deploy@v1.2.5
         with:
           api-key: ''
           course-id: 'course-34e99210-3c9c-11ec-a514-555d2218c5a9'
