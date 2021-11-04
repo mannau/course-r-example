@@ -10,7 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: quantargo/action-course-deploy@v1.2.1
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          lfs: true
+      - uses: quantargo/action-course-deploy@v1.2.2
         with:
           api-key: ''
           course-id: 'course-34e99210-3c9c-11ec-a514-555d2218c5a9'
