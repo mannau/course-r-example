@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - master
+      - next
+
+name: Build and Deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v1
+        with:
+          lfs: true
+
+      - uses: actions/action-course-deploy@v1
+        with:
+          api-key: ''
+          course-id: 'course-34e99210-3c9c-11ec-a514-555d2218c5a9'
