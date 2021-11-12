@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - master
-      - next
 
 name: Build and Deploy
 
@@ -20,4 +19,3 @@ jobs:
       - uses: quantargo/action-course-deploy@v1
         with:
           api-key: ${{ secrets.API_KEY }}
-          course-id: ${{ secrets.COURSE_ID }}
